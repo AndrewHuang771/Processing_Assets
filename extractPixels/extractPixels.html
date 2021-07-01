@@ -1,20 +1,21 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <style> body { padding: 0; margin: 0; } </style>
 </head>
 
 <body>
 	<script language="javascript" type="text/javascript" src="extractPixels.js"></script>
-	<input type="file"
-       id="avatar" name="avatar"
-       accept="image/png, image/jpeg">
-	<button id="activate" onclick="analyze()"></button>
+
+	<div>
+		<label for="extract_image">Choose .jpg or .png to upload</label>
+		<input type="file" id="extract_image" name="profile_pic" accept=".jpg, .jpeg, .png">
+		<button id="activate" onclick="analyze()">Analyze</button>
+	</div>
+
 	<div id="output"></div>
-	<canvas id="c"></canvas>
-	
+	<canvas id="cv"></canvas>
+
 </body>
 </html>
