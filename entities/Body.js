@@ -8,6 +8,7 @@ function Body( config ) {
 	this.color = this.config.color;
 	// 2D Array showing body layout and color for each rect
 	this.template = this.config.template;
+	this.forces = this.config.forces;
 	// The top-left corner of the body
 	this.position = this.config.initialPosition;
 	this.velocity = this.config.initialVelocity;
@@ -17,18 +18,39 @@ function Body( config ) {
 	// initial position/velocity
 	// acceleration determined by forces
 
-	this.update = () => {
+	this.setForces = (forces) => {
+		this.forces = forces;
+	}
+
+	this.addForce = (force) => {
+		this.forces.push(force);
+	}
+
+	this.updatePosition = () => {
 		let netForce = new Vector([0, 0]);
-		if (this.config.gravity) {
-			netForce.add(GRAVITY);
-		}
-		if (this.config.wind) {
-			netForce.add(WIND);
+		if (this.forces) {
+			for ( let i = 0; i < this.forces.length; i ++ ) {
+				netForce.add(this.forces[i]);
+			}
 		}
 		this.acceleration = netForce;
 		this.acceleration.scale(1 / this.mass);
 		this.velocity.add(this.acceleration);
 		this.position.add(this.velocity);
+	}
+
+	this.updateColors = () => {
+		if (this.colorFields) {
+			for ( let i = 0; i < this.colorFields.length; i ++ ) {
+				let cursor = new Vector([0, 0]);
+				cursor = this.position;
+			}
+		}
+	}
+
+	this.update = () => {
+		this.updatePosition();
+		this.updateColors();
 	}
 
 	this.drawRect = ( cursor, length, width, color ) => {

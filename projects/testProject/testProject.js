@@ -9,7 +9,8 @@ function setup() {
   createCanvas(WIDTH, LENGTH);
   // pixelDensity(PIXELDENSITY);
   frameRate(FRAMERATE);
-  background(51);
+  bg = loadImage('bkgd.jpg');
+  background(bg);
 
   for ( let x = 0; x < 1; x ++ ) {
     let config = {
@@ -17,8 +18,7 @@ function setup() {
         length: 15,
         width: 15
       },
-      gravity: true,
-      wind: false,
+      forces: [GRAVITY],
       initialPosition: new Vector([0, 10*x]),
       initialVelocity: new Vector([1, -1]),
       mass: 10,
@@ -35,7 +35,7 @@ function setup() {
 }
 
 function draw() {
-  background(51);
+  background(bg);
   for ( let i = 0; i < bodies.length; i ++ ) {
     bodies[i].update();
     bodies[i].render();

@@ -1,3 +1,3 @@
-function ForceField() {
+function ForceField(size, colorFunction) {
 	
 }
