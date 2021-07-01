@@ -1,5 +1,5 @@
-LENGTH = 200;
-WIDTH = 1300;
+LENGTH = 1000;
+WIDTH = 1920;
 FRAMERATE = 60;
 PIXELDENSITY = 1;
 
@@ -9,23 +9,21 @@ function setup() {
   createCanvas(WIDTH, LENGTH);
   // pixelDensity(PIXELDENSITY);
   frameRate(FRAMERATE);
-  bg = loadImage('bkgd.jpg');
-  background(bg);
 
   for ( let x = 0; x < 1; x ++ ) {
     let config = {
       size: {
-        length: 15,
-        width: 15
+        length: 3,
+        width: 3,
       },
-      forces: [GRAVITY],
-      initialPosition: new Vector([0, 10*x]),
-      initialVelocity: new Vector([1, -1]),
+      forces: [new Vector([1, 1])],
+      initialPosition: new Vector([0, 0]),
+      initialVelocity: new Vector([1, 1]),
       mass: 10,
       color: color(255, 255, 255),
       template: [
-        [color(255, 255, 255), color(255, 1, 255), color(255, 255, 255)], 
-        [color(0, 255, 255), color(0, 0, 0)]
+        [color(255, 255, 255, 0), color(255, 255, 255), color(255, 255, 255)], 
+        [color(255, 255, 255), color(0, 0, 0, 0)]
       ],
     };
     var body = new Body(config);
@@ -35,7 +33,7 @@ function setup() {
 }
 
 function draw() {
-  background(bg);
+  clear();
   for ( let i = 0; i < bodies.length; i ++ ) {
     bodies[i].update();
     bodies[i].render();
