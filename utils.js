@@ -18,6 +18,10 @@ function Vector(components) {
 		return this.components;
 	}
 
+	this.setComponents = (components) => {
+		this.compoents = components;
+	}
+
 	this.add = (addee) => {
 		if ( this.components.length !== addee.getComponents().length ) {
 			console.error("Addition requires two vectors of equal length");

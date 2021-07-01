@@ -3,34 +3,41 @@ WIDTH = 1300;
 FRAMERATE = 60;
 PIXELDENSITY = 1;
 
+let bodies = [];
+
 function setup() {
   createCanvas(WIDTH, LENGTH);
   // pixelDensity(PIXELDENSITY);
   frameRate(FRAMERATE);
   background(51);
-  let config = {
-    size: {
-      length: 5,
-      width: 5
-    },
-    gravity: true,
-    wind: false,
-    initialPosition: new Vector([0, 10]),
-    initialVelocity: new Vector([1, -1]),
-    mass: 10,
-    color: color(255, 255, 255),
-  };
-  var body = new Body(config);
-  bodies.push(body);
+
+  for ( let x = 0; x < 1; x ++ ) {
+    let config = {
+      size: {
+        length: 15,
+        width: 15
+      },
+      gravity: true,
+      wind: false,
+      initialPosition: new Vector([0, 10*x]),
+      initialVelocity: new Vector([1, -1]),
+      mass: 10,
+      color: color(255, 255, 255),
+      template: [
+        [color(255, 255, 255), color(255, 1, 255), color(255, 255, 255)], 
+        [color(0, 255, 255), color(0, 0, 0)]
+      ],
+    };
+    var body = new Body(config);
+    bodies.push(body);
+  }
+
 }
-
-let bodies = [];
-
 
 function draw() {
   background(51);
-
   for ( let i = 0; i < bodies.length; i ++ ) {
+    bodies[i].update();
     bodies[i].render();
   }
 }
