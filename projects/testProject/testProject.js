@@ -13,7 +13,7 @@ function setup() {
 
   for (let x = 0; x < 1; x++) {
     let config = {
-      size: {
+      pixelSize: {
         height: 4,
         width: 4,
       },
@@ -25,7 +25,28 @@ function setup() {
         [color(255, 255, 255), color(255, 255, 255)],
         [color(255, 255, 255), color(255, 255, 255)],
       ],
-      probability: 0.85,
+      probability: 0.65,
+      direction: new Vector([5, 3]),
+      coordsSpawn: [0, -WIDTH, 1, WIDTH],
+    };
+    var body = new Rain(config);
+    bodies.push(body);
+  }
+  for (let x = 0; x < 1; x++) {
+    let config = {
+      pixelSize: {
+        height: 2,
+        width: 2,
+      },
+      forces: [new Vector([1, 1])],
+      initialPosition: new Vector([0, 0]),
+      mass: 10,
+      color: color(255, 255, 255),
+      template: [
+        [color(255, 255, 255), color(255, 255, 255)],
+        [color(255, 255, 255), color(255, 255, 255)],
+      ],
+      probability: 0.65,
       direction: new Vector([5, 3]),
       coordsSpawn: [0, -WIDTH, 1, WIDTH],
     };

@@ -3,7 +3,7 @@
 function Body(config) {
   this.config = config;
   // Array with two elements, length and width
-  this.size = this.config.size;
+  this.pixelSize = this.config.pixelSize;
   this.mass = this.config.mass;
   this.color = this.config.color;
   // 2D Array showing body layout and color for each rect
@@ -66,15 +66,15 @@ function Body(config) {
     for (let x = 0; x < this.template.length; x++) {
       let cursor = new Vector([0, 0]);
       cursor.add(this.position);
-      cursor.add(new Vector([this.size.height * x, 0]));
+      cursor.add(new Vector([this.pixelSize.height * x, 0]));
       for (let y = 0; y < this.template[x].length; y++) {
         this.drawRect(
           cursor,
-          this.size.height,
-          this.size.width,
+          this.pixelSize.height,
+          this.pixelSize.width,
           this.template[x][y]
         );
-        cursor.add(new Vector([0, this.size.width]));
+        cursor.add(new Vector([0, this.pixelSize.width]));
       }
     }
   };
@@ -85,8 +85,8 @@ function Body(config) {
     } else {
       this.drawRect(
         this.position,
-        this.size.height,
-        this.size.width,
+        this.pixelSize.height,
+        this.pixelSize.width,
         this.color
       );
     }

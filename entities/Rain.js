@@ -27,9 +27,9 @@ function Rain(config) {
   this.droplets = [];
 
   this.defaultDropletConfig = {
-    size: {
-      height: this.config.size.height,
-      width: this.config.size.width,
+    pixelSize: {
+      height: this.config.pixelSize.height,
+      width: this.config.pixelSize.width,
     },
     forces: [this.direction.copy()],
     mass: 10,
