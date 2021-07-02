@@ -39,6 +39,7 @@ function Rain(config) {
       [color(255, 255, 255), color(255, 255, 255)],
       [color(255, 255, 255), color(255, 255, 255)],
     ],
+    forceFields: this.config.forceFields
   };
 
   this.defaultDropletConfig.forces[0].scale(this.accelerationScaleFactor);
@@ -53,6 +54,7 @@ function Rain(config) {
         Math.floor(Math.random() * (this.coordsSpawn[3] - this.coordsSpawn[1]));
       let config = this.defaultDropletConfig;
       config.initialPosition = new Vector([coordY, coordX]);
+
       let droplet = new Droplet(this.defaultDropletConfig);
       this.droplets.push(droplet);
     }

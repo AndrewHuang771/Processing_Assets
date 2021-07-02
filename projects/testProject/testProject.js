@@ -6,10 +6,29 @@ MAXPROBABILITY = 0.99;
 
 let bodies = [];
 
+
+function vertical(x,y,mass) {
+  return -0.0015*x
+}
+
+function horizontal(x,y,mass) {
+  return -0.0015*y
+}
+
 function setup() {
   createCanvas(WIDTH, HEIGHT);
   // pixelDensity(PIXELDENSITY);
   frameRate(FRAMERATE);
+
+  // intitialize a forcefield
+  let config = {
+    position: [500, 500],
+    size: [1000, 1920],
+    forceFunction: [vertical, horizontal]
+  }
+
+  let ff = new ForceField(config)
+  ff.initializeForceField()
 
   for (let x = 0; x < 1; x++) {
     let config = {
@@ -28,6 +47,7 @@ function setup() {
       probability: 0.65,
       direction: new Vector([5, 3]),
       coordsSpawn: [0, -WIDTH, 1, WIDTH],
+      forceFields: [ff]
     };
     var body = new Rain(config);
     bodies.push(body);

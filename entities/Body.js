@@ -14,6 +14,9 @@ function Body(config) {
   this.velocity = this.config.initialVelocity.copy();
   this.acceleration = new Vector([0, 0]);
 
+  // List of force fields this body is in
+  this.forceFields = this.config.forceFields
+
   //   this.velocity.print();
 
   // template, what the object looks like, color, etc
@@ -28,6 +31,16 @@ function Body(config) {
     this.forces.push(force);
   };
 
+  this.applyForceFields = (vector) => {
+    // produce a vector that is the sum of all forcefield forces acting on this body
+    if (this.forceFields) {
+      for (let i = 0; i < this.forceFields.length; i++) {
+        vector.add(this.forceFields[i].applyForce(this.position, this.mass))
+      }
+    }
+    return vector
+  }
+
   this.updatePosition = () => {
     let netForce = new Vector([0, 0]);
     if (this.forces) {
@@ -35,6 +48,10 @@ function Body(config) {
         netForce.add(this.forces[i]);
       }
     }
+
+    // apply force fields
+    netForce.add(this.applyForceFields(netForce))
+
     this.acceleration = netForce;
     this.acceleration.scale(1 / this.mass);
     this.velocity.add(this.acceleration);
