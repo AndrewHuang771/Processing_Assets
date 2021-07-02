@@ -6,9 +6,12 @@ function ForceField(config) {
     this.size = this.config.size
     // list for component force functions: vertical and horizontal
     this.forceFunction = this.config.forceFunction
+
+    // TODO: allow field to modify color of bodies in it
     this.colorFunction = this.config.colorFunction
     this.field = []
 
+    
     this.initializeForceField = () => {
         this.field = []
         for (let x = this.position[0]; x < this.position[0] + this.size[0]; x ++) {
