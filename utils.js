@@ -3,61 +3,79 @@ var PIXELDENSITY = 1;
 var FRAMERATE = 10;
 var GRAVITY = new Vector([0, 1]);
 var WIND = new Vector([1, 0]);
-var LENGTH = 0;
+var HEIGHT = 0;
 var WIDTH = 0;
 
 // Accepts an array of components ex: [1, 0, 2, 3]
 function Vector(components) {
-	this.components = components;
+  this.components = components;
 
-	this.print = () => {
-		console.log(this.components);
-	}
+  this.print = () => {
+    console.log(this.components);
+  };
 
-	this.getComponents = () => {
-		return this.components;
-	}
+  this.copy = () => {
+    let newComponents = [];
+    for (let i = 0; i < this.components.length; i++) {
+      newComponents.push(this.components[i]);
+    }
+    return new Vector(newComponents);
+  };
 
-	this.setComponents = (components) => {
-		this.compoents = components;
-	}
+  this.getComponents = () => {
+    return this.components;
+  };
 
-	this.add = (addee) => {
-		if ( this.components.length !== addee.getComponents().length ) {
-			console.error("Addition requires two vectors of equal length");
-			return undefined;
-		}
-		for ( x = 0; x < this.components.length; x ++ ) {
-			this.components[x] += addee.getComponents()[x];
-		}
-	}
+  this.setComponents = (components) => {
+    this.compoents = components;
+  };
 
-	this.scale = (scalee) => {
-		for ( x = 0; x < this.components.length; x ++ ) {
-			this.components[x] *= scalee;
-		}
-	}
+  this.add = (addee) => {
+    if (this.components.length !== addee.getComponents().length) {
+      console.error("Addition requires two vectors of equal length");
+      return undefined;
+    }
+    for (x = 0; x < this.components.length; x++) {
+      this.components[x] += addee.getComponents()[x];
+    }
+  };
 
-	this.getMagnitude = () => {
-		let sum = 0;
-		for (x = 0; x < this.components.length; x ++) {
-			sum += this.components[x]*this.components[x];
-		}
-		return Math.sqrt(sum);
-	}
+  this.scale = (scalee) => {
+    for (x = 0; x < this.components.length; x++) {
+      this.components[x] *= scalee;
+    }
+  };
 
-	this.getDotProduct = (callee) => {
-		if ( this.components.length !== callee.getComponents().length ) {
-			console.error("Dot product requires two vectors of equal length");
-			return undefined;
-		}
-		let sum = 0;
-		for ( x = 0; x < this.components.length; x ++ ) {
-			sum += this.components[x]*callee.getComponents()[x];
-		}
-		return sum;
-	}
+  this.getMagnitude = () => {
+    let sum = 0;
+    for (x = 0; x < this.components.length; x++) {
+      sum += this.components[x] * this.components[x];
+    }
+    return Math.sqrt(sum);
+  };
 
+  this.getDotProduct = (callee) => {
+    if (this.components.length !== callee.getComponents().length) {
+      console.error("Dot product requires two vectors of equal length");
+      return undefined;
+    }
+    let sum = 0;
+    for (x = 0; x < this.components.length; x++) {
+      sum += this.components[x] * callee.getComponents()[x];
+    }
+    return sum;
+  };
+}
+
+function make2DLineTemplate(vector) {
+  let template = [];
+  if (vector.getComponents().length !== 2) {
+    console.error("2D line requires a 2D vector");
+    return undefined;
+  }
+  for (let i = 0; i < vector.getComponents()[0]; i++) {
+    for (let i = 0; i < vector.getComponents()[1]; i++) {}
+  }
 }
 
 /* Grid system
@@ -77,20 +95,23 @@ index:     0      1      2   ...  width + 0, width + 1 ...
 
 // Given an index in the pixelArray, return the x and y locations on the grid
 function get2DIndices(idx, width) {
-	let x = Math.floor(idx / width);
-	let y = idx - x*width;
-	return [x, y];
+  let x = Math.floor(idx / width);
+  let y = idx - x * width;
+  return [x, y];
 }
 
 // Given an x and y location on the grid, return the pixelArray index
 function get1DIndex(x, y, width) {
-	let untrimmedResult = Math.floor(x*width + y)*PIXELDENSITY*4;
-	return untrimmedResult;
+  let untrimmedResult = Math.floor(x * width + y) * PIXELDENSITY * 4;
+  return untrimmedResult;
 }
 
 function isInBounds(x, y) {
-	if (typeof y === 'undefined') {
-		return x >= 0 && x < LENGTH*WIDTH*PIXELDENSITY*4;
-	}
-	return get1DIndex(x, y, WIDTH) >= 0 && get1DIndex(x, y, WIDTH) < LENGTH*WIDTH*PIXELDENSITY*4;
+  if (typeof y === "undefined") {
+    return x >= 0 && x < LENGTH * WIDTH * PIXELDENSITY * 4;
+  }
+  return (
+    get1DIndex(x, y, WIDTH) >= 0 &&
+    get1DIndex(x, y, WIDTH) < LENGTH * WIDTH * PIXELDENSITY * 4
+  );
 }
