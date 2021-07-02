@@ -76,12 +76,12 @@ function Body(config) {
       let cursor = new Vector([0, 0]);
       cursor.add(this.position);
       cursor.add(new Vector([this.pixelSize.height * x, 0]));
-      for (let y = 0; y < this.template[x].length; y++) {
+      for (let y = 0; y < this.template.getRow(x).length; y++) {
         this.drawRect(
           cursor,
           this.pixelSize.height,
           this.pixelSize.width,
-          this.template[x][y]
+          this.template.get(x, y)
         );
         cursor.add(new Vector([0, this.pixelSize.width]));
       }
