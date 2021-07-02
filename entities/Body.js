@@ -7,8 +7,8 @@ function Body(config) {
   this.mass = this.config.mass;
   this.color = this.config.color;
   // 2D Array showing body layout and color for each rect
-  this.template = this.config.template;
-  this.forces = this.config.forces;
+  this.template = this.config.template || [[color(255, 255, 255, 0)]];
+  this.forces = [...this.config.forces];
   // The top-left corner of the body
   this.position = this.config.initialPosition.copy();
   this.velocity = this.config.initialVelocity.copy();
@@ -62,7 +62,16 @@ function Body(config) {
     rect(position[0], position[1], height, width);
   };
 
-  this.renderTemplate = () => {
+  // this.checkOnscreen = () => {
+  //   let upperLeftCorner = this.position.getComponents();
+  //   let upperRightCorner = [...upperLeftCorner];
+  //   upperRightCorner[1] += this.template.length * this.size;
+  //   let lowerRightCorner = [...upperRightCorner];
+  //   lowerRightCorner[0] += this.template.height
+
+  // };
+
+  this.render = () => {
     for (let x = 0; x < this.template.length; x++) {
       let cursor = new Vector([0, 0]);
       cursor.add(this.position);
@@ -76,19 +85,6 @@ function Body(config) {
         );
         cursor.add(new Vector([0, this.pixelSize.width]));
       }
-    }
-  };
-
-  this.render = () => {
-    if (this.template) {
-      this.renderTemplate();
-    } else {
-      this.drawRect(
-        this.position,
-        this.pixelSize.height,
-        this.pixelSize.width,
-        this.color
-      );
     }
   };
 }

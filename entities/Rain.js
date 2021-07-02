@@ -3,6 +3,17 @@ function Droplet(config) {
   // Used to make trail
   this.body = new Body(this.config);
 
+  // this.getNoise = () => {
+  //   let position = this.body.position.getComponents();
+  //   let noiseX = noise(position[0], position[1]);
+  //   let noiseY = noise(position[1], position[0]);
+  //   let wind = new Vector([noiseX, noiseY]);
+  //   wind.scale(1);
+  //   this.body.addForce(wind);
+  // };
+
+  // this.getNoise();
+
   this.update = () => {
     this.body.update();
   };
@@ -35,10 +46,7 @@ function Rain(config) {
     mass: 10,
     color: this.color,
     initialVelocity: this.direction.copy(),
-    template: [
-      [color(255, 255, 255), color(255, 255, 255)],
-      [color(255, 255, 255), color(255, 255, 255)],
-    ],
+    template: this.config.template,
   };
 
   this.defaultDropletConfig.forces[0].scale(this.accelerationScaleFactor);

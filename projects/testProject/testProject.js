@@ -21,12 +21,9 @@ function setup() {
       initialPosition: new Vector([0, 0]),
       mass: 10,
       color: color(255, 255, 255),
-      template: [
-        [color(255, 255, 255), color(255, 255, 255)],
-        [color(255, 255, 255), color(255, 255, 255)],
-      ],
+      template: make2DLineTemplate(new Vector([2, 3]), color(255, 255, 255)),
       probability: 0.65,
-      direction: new Vector([5, 3]),
+      direction: new Vector([2, 3]),
       coordsSpawn: [0, -WIDTH, 1, WIDTH],
     };
     var body = new Rain(config);
