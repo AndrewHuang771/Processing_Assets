@@ -23,6 +23,7 @@ function Rain(config) {
   this.trailLength =
     min(Math.floor(Math.abs(this.config.trailLength)), 10) || 5;
   this.accelerationScaleFactor = this.config.accelerationScaleFactor || 0.1;
+  this.forces = [...this.config.forces];
   this.droplets = [];
 
   this.defaultDropletConfig = {
@@ -30,14 +31,14 @@ function Rain(config) {
       height: this.config.pixelSize.height,
       width: this.config.pixelSize.width,
     },
-    forces: [this.direction.copy()],
+    forces: this.forces,
     mass: 10,
     color: this.color,
     initialVelocity: this.direction.copy(),
     template: this.config.template,
   };
 
-  this.defaultDropletConfig.forces[0].scale(this.accelerationScaleFactor);
+  //this.defaultDropletConfig.forces[0].scale(this.accelerationScaleFactor);
 
   this.createDroplets = () => {
     while (Math.random() <= this.probability) {

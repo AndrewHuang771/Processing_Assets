@@ -26,7 +26,8 @@ function Body(config) {
     let netForce = new Vector([0, 0]);
     if (this.forces) {
       for (let i = 0; i < this.forces.length; i++) {
-        netForce.add(this.forces[i]);
+        let force = this.forces[i];
+        netForce.add(isFunction(force) ? force(this) : force);
       }
     }
     this.acceleration = netForce;
@@ -84,12 +85,7 @@ function Body(config) {
             cursor,
             this.pixelSize.height,
             this.pixelSize.width,
-            isFunction(color)
-              ? color(
-                  this.position.getComponents()[0] + x * this.pixelSize.height,
-                  this.position.getComponents()[1] + y * this.pixelSize.width
-                )
-              : color
+            isFunction(color) ? color(this) : color
           );
           cursor.add(new Vector([0, this.pixelSize.width]));
         }

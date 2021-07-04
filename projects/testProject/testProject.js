@@ -23,12 +23,21 @@ function setup() {
       height: 4,
       width: 4,
     },
-    forces: [new Vector([1, 1])],
+    forces: [
+      (body) => {
+        let x = body.position.getComponents()[0];
+        let y = body.position.getComponents()[1];
+        let force = new Vector([Math.abs(x) / HEIGHT, Math.abs(y) / WIDTH]);
+        return force;
+      },
+    ],
     initialPosition: new Vector([0, 0]),
     mass: 10,
     color: color(255, 255, 255),
     template: new Template(
-      make2DLineTemplate(new Vector([2, 3]), (x, y) => {
+      make2DLineTemplate(new Vector([2, 3]), (body) => {
+        let x = body.position.getComponents()[0];
+        let y = body.position.getComponents()[1];
         let red = min(x, 255);
         // console.log(x, y);
         return color(red, 255, 255);
