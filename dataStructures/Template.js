@@ -11,7 +11,7 @@ function Template(template) {
     return newTemplate;
   };
 
-  this.template = this.copyTemplate(template);
+  this.template = template;
 
   this.length = this.template.length;
 
@@ -35,6 +35,7 @@ function Template(template) {
     this.template = this.copyTemplate(template);
   };
 
+  // Can cache this to increase performance
   this.getLongestRow = () => {
     let maxLength = 0;
     for (let i = 0; i < this.template.length; i++) {

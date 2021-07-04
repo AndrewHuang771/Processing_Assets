@@ -2,7 +2,7 @@
 
 function Body(config) {
   this.config = config;
-  // Array with two elements, length and width
+  // Array with two elements, height and width
   this.pixelSize = this.config.pixelSize;
   this.mass = this.config.mass;
   this.color = this.config.color;
@@ -13,12 +13,6 @@ function Body(config) {
   this.position = this.config.initialPosition.copy();
   this.velocity = this.config.initialVelocity.copy();
   this.acceleration = new Vector([0, 0]);
-
-  //   this.velocity.print();
-
-  // template, what the object looks like, color, etc
-  // initial position/velocity
-  // acceleration determined by forces
 
   this.setForces = (forces) => {
     this.forces = forces;
@@ -41,18 +35,8 @@ function Body(config) {
     this.position.add(this.velocity);
   };
 
-  this.updateColors = () => {
-    if (this.colorFields) {
-      for (let i = 0; i < this.colorFields.length; i++) {
-        let cursor = new Vector([0, 0]);
-        cursor = this.position;
-      }
-    }
-  };
-
   this.update = () => {
     this.updatePosition();
-    this.updateColors();
   };
 
   this.drawRect = (cursor, height, width, color) => {
@@ -62,28 +46,53 @@ function Body(config) {
     rect(position[0], position[1], height, width);
   };
 
-  // this.checkOnscreen = () => {
-  //   let upperLeftCorner = this.position.getComponents();
-  //   let upperRightCorner = [...upperLeftCorner];
-  //   upperRightCorner[1] += this.template.length * this.size;
-  //   let lowerRightCorner = [...upperRightCorner];
-  //   lowerRightCorner[0] += this.template.height
+  this.checkPointOnScreen = (position) => {
+    return !(
+      position[0] < 0 ||
+      position[0] > HEIGHT ||
+      position[1] < 0 ||
+      position[1] > WIDTH
+    );
+  };
 
-  // };
+  this.checkTemplateOnscreen = () => {
+    let upperLeftCorner = this.position.getComponents();
+    let upperRightCorner = [...upperLeftCorner];
+    upperRightCorner[1] += this.template.getLongestRow() * this.size;
+    let lowerRightCorner = [...upperRightCorner];
+    lowerRightCorner[0] += this.template.height * this.size;
+    let lowerLeftCorner = [...upperLeftCorner];
+    lowerLeftCorner[0] += this.template.height * this.size;
+
+    return (
+      this.checkPointOnScreen(upperLeftCorner) ||
+      this.checkPointOnScreen(upperRightCorner) ||
+      this.checkPointOnScreen(lowerLeftCorner) ||
+      this.checkPointOnScreen(lowerRightCorner)
+    );
+  };
 
   this.render = () => {
-    for (let x = 0; x < this.template.length; x++) {
-      let cursor = new Vector([0, 0]);
-      cursor.add(this.position);
-      cursor.add(new Vector([this.pixelSize.height * x, 0]));
-      for (let y = 0; y < this.template.getRow(x).length; y++) {
-        this.drawRect(
-          cursor,
-          this.pixelSize.height,
-          this.pixelSize.width,
-          this.template.get(x, y)
-        );
-        cursor.add(new Vector([0, this.pixelSize.width]));
+    if (this.checkTemplateOnscreen()) {
+      for (let x = 0; x < this.template.length; x++) {
+        let cursor = new Vector([0, 0]);
+        cursor.add(this.position);
+        cursor.add(new Vector([this.pixelSize.height * x, 0]));
+        for (let y = 0; y < this.template.getRow(x).length; y++) {
+          let color = this.template.get(x, y);
+          this.drawRect(
+            cursor,
+            this.pixelSize.height,
+            this.pixelSize.width,
+            isFunction(color)
+              ? color(
+                  this.position.getComponents()[0] + x * this.pixelSize.height,
+                  this.position.getComponents()[1] + y * this.pixelSize.width
+                )
+              : color
+          );
+          cursor.add(new Vector([0, this.pixelSize.width]));
+        }
       }
     }
   };

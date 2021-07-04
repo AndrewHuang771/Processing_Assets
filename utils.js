@@ -19,6 +19,11 @@ function createEmptyTemplate(height, width) {
   return template;
 }
 
+// Returns true if obj is a function
+function isFunction(obj) {
+  return !!(obj && obj.constructor && obj.call && obj.apply);
+}
+
 // Bresenham algorithm with vector input
 function make2DLineTemplate(vector, color) {
   let vectorComponents = vector.getComponents();
@@ -67,4 +72,12 @@ function make2DLineTemplate(vector, color) {
     }
   }
   return template;
+}
+
+function drawFPS() {
+  // Draw FPS (rounded to 2 decimal places) at the bottom left of the screen
+  let fps = frameRate();
+  fill(255);
+  stroke(0);
+  text("FPS: " + fps.toFixed(2), 10, height - 10);
 }
