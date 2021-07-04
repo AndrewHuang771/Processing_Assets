@@ -38,8 +38,6 @@ function Rain(config) {
     template: this.config.template,
   };
 
-  //this.defaultDropletConfig.forces[0].scale(this.accelerationScaleFactor);
-
   this.createDroplets = () => {
     while (Math.random() <= this.probability) {
       let coordX =
