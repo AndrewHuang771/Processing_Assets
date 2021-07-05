@@ -27,6 +27,9 @@ function isFunction(obj) {
 // Bresenham algorithm with vector input
 function make2DLineTemplate(vector, color) {
   let vectorComponents = vector.getComponents();
+  for (let i = 0; i < vectorComponents.length; i++) {
+    vectorComponents[i] = Math.floor(vectorComponents[i]);
+  }
   if (vectorComponents[0] < 0 || vectorComponents[1] < 0) {
     vectorComponents[0] *= -1;
     vectorComponents[1] *= -1;
@@ -77,7 +80,11 @@ function make2DLineTemplate(vector, color) {
 function drawFPS() {
   // Draw FPS (rounded to 2 decimal places) at the bottom left of the screen
   let fps = frameRate();
-  fill(255);
+  if (fps >= 60) {
+    fill(color(0, 255, 0));
+  } else {
+    fill(255);
+  }
   stroke(0);
   text("FPS: " + fps.toFixed(2), 10, height - 10);
 }

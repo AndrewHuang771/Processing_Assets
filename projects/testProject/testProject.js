@@ -4,7 +4,7 @@ WIDTH = 1700;
 FRAMERATE = 60;
 PIXELDENSITY = 1;
 MAXPROBABILITY = 0.99;
-UPDATEDELAY = 1;
+UPDATEDELAY = 2;
 
 let bodies = [];
 let fields = [];
@@ -21,19 +21,14 @@ function createBodies() {
       (body) => {
         let x = body.position.getComponents()[0];
         let y = body.position.getComponents()[1];
-        let force = new Vector([Math.abs(x) / HEIGHT, Math.abs(y) / WIDTH]);
+        let force = new Vector([noise(t / 60 + x), noise(t / 60 + y)]);
         return force;
       },
     ],
     mass: 10,
     template: (body) => {
       return new Template(
-        make2DLineTemplate(new Vector([2, 3]), (body) => {
-          let x = body.position.getComponents()[0];
-          let y = body.position.getComponents()[1];
-          let red = min(x, 255);
-          return color(red, 255, 255);
-        })
+        make2DLineTemplate(body.velocity.copy(), color(255, 255, 255))
       );
     },
     probability: 0.65,

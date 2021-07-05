@@ -23,7 +23,7 @@ function Rain(config) {
   this.trailLength =
     min(Math.floor(Math.abs(this.config.trailLength)), 10) || 5;
   this.accelerationScaleFactor = this.config.accelerationScaleFactor || 0.1;
-  this.forces = [...this.config.forces];
+  this.forces = this.config.forces;
   this.droplets = [];
 
   this.defaultDropletConfig = {
