@@ -39,7 +39,7 @@ function Template(template) {
   this.getLongestRow = () => {
     let maxLength = 0;
     for (let i = 0; i < this.template.length; i++) {
-      maxLength = max(maxLength, this.template[i].length);
+      maxLength = Math.max(maxLength, this.template[i].length);
     }
     return maxLength;
   };

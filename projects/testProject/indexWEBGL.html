@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Pixel Art Animator</title>
+		<style> 
+			body { 
+			background-image: url("bkgd.jpg");
+			padding: 0; 
+			margin: 0;
+		  } 
+		 </style>
+	</head>
+	<body onload="InitCanvas('game-surface');">
+		<canvas id="game-surface">
+			Your browser does not support HTML5
+		</canvas>
+		<script language="javascript" type="text/javascript" src="../../dataStructures/Vector.js"></script>
+		<script language="javascript" type="text/javascript" src="../../dataStructures/Template.js"></script>
+		<script language="javascript" type="text/javascript" src="../../dataStructures/VectorField.js"></script>
+	  
+		<!-- Utility Functions -->
+		<script language="javascript" type="text/javascript" src="../../utils.js"></script>
+	  
+		<!-- Entities -->
+		<script language="javascript" type="text/javascript" src="../../entities/Body.js"></script>
+		<script language="javascript" type="text/javascript" src="../../entities/Rain.js"></script>
+		<script src="app.js"></script>
+	</body>
+</html>

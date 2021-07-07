@@ -1,10 +1,38 @@
-// Global Variables, in vector form
-var PIXELDENSITY = 1;
-var FRAMERATE = 10;
-var GRAVITY = new Vector([0, 1]);
-var WIND = new Vector([1, 0]);
-var HEIGHT = 0;
-var WIDTH = 0;
+// Color is a 4-element array containing RGBA values.
+function drawRect(
+  positionVector,
+  pixelSize,
+  color,
+  triangleVertices,
+  canvasDim
+) {
+  let { canvasWidth, canvasHeight } = canvasDim;
+  // Top left corner of the rectangle
+  let position = positionVector.getComponents();
+  position[0] *= 2 / canvasWidth;
+  position[1] *= 2 / canvasHeight;
+  let topRightCorner = [...position];
+  topRightCorner[0] += pixelSize.width / canvasWidth;
+  let bottomRightCorner = [...topRightCorner];
+  bottomRightCorner[1] -= pixelSize.height / canvasHeight;
+  let bottomLeftCorner = [...position];
+  bottomLeftCorner[1] -= pixelSize.height / canvasHeight;
+
+  triangleVertices.push(
+    ...bottomLeftCorner,
+    ...color,
+    ...bottomRightCorner,
+    ...color,
+    ...topRightCorner,
+    ...color,
+    ...bottomLeftCorner,
+    ...color,
+    ...topRightCorner,
+    ...color,
+    ...position,
+    ...color
+  );
+}
 
 // Creates a rectangular template size height x width of transparent colors
 function createEmptyTemplate(height, width) {
@@ -12,7 +40,7 @@ function createEmptyTemplate(height, width) {
   for (let i = 0; i < height; i++) {
     template[i] = [];
     for (let j = 0; j < width; j++) {
-      let element = color(0, 0, 0, 0);
+      let element = [0, 0, 0, 0];
       template[i].push(element);
     }
   }
@@ -36,8 +64,8 @@ function make2DLineTemplate(vector, color) {
   }
 
   let template = createEmptyTemplate(
-    Math.abs(vectorComponents[0]) + 1,
-    Math.abs(vectorComponents[1]) + 1
+    Math.abs(vectorComponents[0]),
+    Math.abs(vectorComponents[1])
   );
 
   if (vector.getComponents().length !== 2) {
@@ -77,14 +105,14 @@ function make2DLineTemplate(vector, color) {
   return template;
 }
 
-function drawFPS() {
+function drawFPS(p) {
   // Draw FPS (rounded to 2 decimal places) at the bottom left of the screen
-  let fps = frameRate();
+  let fps = p.frameRate();
   if (fps >= 60) {
-    fill(color(0, 255, 0));
+    p.fill(p.color(0, 255, 0));
   } else {
-    fill(255);
+    p.fill(255);
   }
-  stroke(0);
-  text("FPS: " + fps.toFixed(2), 10, height - 10);
+  p.stroke(0);
+  p.text("FPS: " + fps.toFixed(2), 10, p.height - 10);
 }

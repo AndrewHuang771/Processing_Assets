@@ -20,14 +20,17 @@
 
   <style> 
   	body { 
-	  	padding: 0; 
-	  	margin: 0;
-	  	background-image: url("bkgd.jpg");
+      padding: 0; 
+      margin: 0;
 	} 
+   .p5layer {
+      position:absolute;
+   }
    </style>
 </head>
 
 <body>
-   <div id = "c1" style=" width: 500px; height: 500px; position:absolute; z-index: 10"></div>
+   <div id = "c1" class="p5layer" style="background-image: url('bkgd.jpg');"></div>
+   <div id = "c2" class="p5layer" style=""></div>
 </body>
 </html>

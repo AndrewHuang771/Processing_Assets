@@ -2,13 +2,11 @@
 
 function Body(config) {
   this.config = config;
-  this.timeCreated = t;
   // Array with two elements, height and width
   this.pixelSize = this.config.pixelSize;
   this.mass = this.config.mass;
   // 2D Array showing body layout and color for each rect
-  this.template =
-    this.config.template || new Template([[color(255, 255, 255, 0)]]);
+  this.template = this.config.template || new Template([[[1, 1, 1, 1]]]);
   this.forces = [...this.config.forces];
   // The top-left corner of the body
   this.position = this.config.initialPosition.copy();
@@ -41,58 +39,24 @@ function Body(config) {
     this.updatePosition();
   };
 
-  this.drawRect = (cursor, height, width, color) => {
-    let position = cursor.getComponents();
-    fill(color);
-    noStroke();
-    rect(position[0], position[1], height, width);
-  };
-
-  this.checkPointOnScreen = (position) => {
-    return !(
-      position[0] < 0 ||
-      position[0] > HEIGHT ||
-      position[1] < 0 ||
-      position[1] > WIDTH
-    );
-  };
-
-  this.checkTemplateOnscreen = (template) => {
-    let upperLeftCorner = this.position.getComponents();
-    let upperRightCorner = [...upperLeftCorner];
-    upperRightCorner[1] += template.getLongestRow() * this.size;
-    let lowerRightCorner = [...upperRightCorner];
-    lowerRightCorner[0] += template.height * this.size;
-    let lowerLeftCorner = [...upperLeftCorner];
-    lowerLeftCorner[0] += template.height * this.size;
-
-    return (
-      this.checkPointOnScreen(upperLeftCorner) ||
-      this.checkPointOnScreen(upperRightCorner) ||
-      this.checkPointOnScreen(lowerLeftCorner) ||
-      this.checkPointOnScreen(lowerRightCorner)
-    );
-  };
-
-  this.render = () => {
+  this.render = (triangleVertices, canvasDim) => {
     let template = isFunction(this.template)
       ? this.template(this)
       : this.template;
-    if (this.checkTemplateOnscreen(template)) {
-      for (let x = 0; x < template.length; x++) {
-        let cursor = new Vector([0, 0]);
-        cursor.add(this.position);
-        cursor.add(new Vector([this.pixelSize.height * x, 0]));
-        for (let y = 0; y < template.getRow(x).length; y++) {
-          let color = template.get(x, y);
-          this.drawRect(
-            cursor,
-            this.pixelSize.height,
-            this.pixelSize.width,
-            isFunction(color) ? color(this) : color
-          );
-          cursor.add(new Vector([0, this.pixelSize.width]));
-        }
+    for (let x = 0; x < template.length; x++) {
+      let cursor = new Vector([0, 0]);
+      cursor.add(this.position);
+      cursor.add(new Vector([this.pixelSize.height * x, 0]));
+      for (let y = 0; y < template.getRow(x).length; y++) {
+        let color = template.get(x, y);
+        drawRect(
+          cursor,
+          { height: this.pixelSize.height, width: this.pixelSize.width },
+          isFunction(color) ? color(this) : color,
+          triangleVertices,
+          canvasDim
+        );
+        cursor.add(new Vector([0, this.pixelSize.width]));
       }
     }
   };

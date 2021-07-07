@@ -6,8 +6,8 @@ function Droplet(config) {
     this.body.update();
   };
 
-  this.render = () => {
-    this.body.render();
+  this.render = (triangleVertices, canvasDim) => {
+    this.body.render(triangleVertices, canvasDim);
   };
 }
 
@@ -19,9 +19,9 @@ function Rain(config) {
   this.coordsDespawn = this.config.coordsDespawn;
   this.color = this.config.color;
   this.direction = this.config.direction.copy();
-  this.probability = min(this.config.probability, MAXPROBABILITY);
+  this.probability = Math.min(this.config.probability, MAXPROBABILITY);
   this.trailLength =
-    min(Math.floor(Math.abs(this.config.trailLength)), 10) || 5;
+    Math.min(Math.floor(Math.abs(this.config.trailLength)), 10) || 5;
   this.accelerationScaleFactor = this.config.accelerationScaleFactor || 0.1;
   this.forces = this.config.forces;
   this.droplets = [];
@@ -47,30 +47,36 @@ function Rain(config) {
         this.coordsSpawn[1] +
         Math.floor(Math.random() * (this.coordsSpawn[3] - this.coordsSpawn[1]));
       let config = this.defaultDropletConfig;
-      config.initialPosition = new Vector([coordY, coordX]);
+      config.initialPosition = new Vector([coordX, coordY]);
       let droplet = new Droplet(this.defaultDropletConfig);
       this.droplets.push(droplet);
     }
   };
 
-  this.destroyDropletsOOS = () => {
+  this.destroyDropletsOOS = (canvasDim) => {
+    let { canvasWidth, canvasHeight } = canvasDim;
     for (let i = 0; i < this.droplets.length; i++) {
       let position = this.droplets[i].body.position.getComponents();
-      if (position[0] > WIDTH || position[1] > HEIGHT) {
+      if (
+        position[0] > canvasWidth / 2 ||
+        position[1] < canvasHeight / -2 ||
+        position[0] < canvasWidth / -2 ||
+        position[1] > canvasHeight / 2 + 50
+      ) {
         this.droplets.splice(i, 1);
       }
     }
   };
 
-  this.render = () => {
+  this.render = (triangleVertices, canvasDim) => {
     for (let i = 0; i < this.droplets.length; i++) {
-      this.droplets[i].render();
+      this.droplets[i].render(triangleVertices, canvasDim);
     }
   };
 
-  this.update = () => {
+  this.update = (canvasDim) => {
     this.createDroplets();
-    this.destroyDropletsOOS();
+    this.destroyDropletsOOS(canvasDim);
     for (let i = 0; i < this.droplets.length; i++) {
       this.droplets[i].update();
     }
