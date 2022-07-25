@@ -174,7 +174,7 @@ function createBodies(bodies, canvasDim) {
       Math.random() * canvasWidth - canvasWidth / 2,
       Math.random() * canvasHeight - canvasHeight / 2,
     ]),
-    initialVelocity: new Vector([0, 0]),
+    initialVelocity: new Vector([0, Math.random() * -10]),
     pixelSize: {
       height: 15,
       width: 15,
@@ -182,10 +182,10 @@ function createBodies(bodies, canvasDim) {
     // template: (body) => {
     //   return new Template(make2DLineTemplate(new Vector([1, 1]), [1, 1, 1, 1]));
     // },
-    forces: [new Vector([0, -1])],
+    forces: [new Vector([0, 3])],
     mass: 10,
-    probability: 0.9,
-    direction: new Vector([0, -1]),
+    probability: 0.5,
+    direction: new Vector([0, -5]),
     coordsSpawn: [
       (-1 * canvasWidth) / 2,
       canvasHeight / 2,

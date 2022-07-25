@@ -1,7 +1,7 @@
 p5.disableFriendlyErrors = true; // disables FES
 HEIGHT = 900;
 WIDTH = 1700;
-FRAMERATE = 60;
+FRAMERATE = 5;
 PIXELDENSITY = 1;
 MAXPROBABILITY = 0.99;
 UPDATEDELAY = 1;

@@ -6,7 +6,11 @@ function Body(config) {
   this.pixelSize = this.config.pixelSize;
   this.mass = this.config.mass;
   // 2D Array showing body layout and color for each rect
-  this.template = this.config.template || new Template([[[1, 1, 1, 1]]]);
+  this.template = this.config.template || new Template([
+    [[1, 1, 1, 0.1], [0, 0, 0, 0], [1, 0.1, 1, 1], [1, 0.1, 1, 1]],
+    [[0.1, 1, 1, 1], [1, 1, 0.1, 1]],
+    [[1, 1, 1, 1]]
+  ]);
   this.forces = [...this.config.forces];
   // The top-left corner of the body
   this.position = this.config.initialPosition.copy();
@@ -43,12 +47,14 @@ function Body(config) {
     let template = isFunction(this.template)
       ? this.template(this)
       : this.template;
+    
     for (let x = 0; x < template.length; x++) {
-      let cursor = new Vector([0, 0]);
-      cursor.add(this.position);
-      cursor.add(new Vector([this.pixelSize.height * x, 0]));
       for (let y = 0; y < template.getRow(x).length; y++) {
         let color = template.get(x, y);
+        let cursor = new Vector([0, 0]);
+        cursor.add(this.position);
+        cursor.add(new Vector([this.pixelSize.height * y / 2, 0]));
+        cursor.add(new Vector([0, this.pixelSize.width * x * -1 / 2]));
         drawRect(
           cursor,
           { height: this.pixelSize.height, width: this.pixelSize.width },
@@ -56,7 +62,6 @@ function Body(config) {
           triangleVertices,
           canvasDim
         );
-        cursor.add(new Vector([0, this.pixelSize.width]));
       }
     }
   };

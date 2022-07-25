@@ -19,3 +19,11 @@ A Body is an object that renders on the screen that can be affected by physics, 
 ## Template
 
 A Template is an object with a 2-D array representing the look of a Body, with each cell containing the corresponding color the body should be.
+example of proper formatting for a template:
+
+[
+    [[1, 1, 1, 0.1], [0, 0, 0, 0], [1, 0.1, 1, 1], [1, 0.1, 1, 1]],
+    [[0.1, 1, 1, 1], [1, 1, 0.1, 1]],
+    [[1, 1, 1, 1]]
+]
+
