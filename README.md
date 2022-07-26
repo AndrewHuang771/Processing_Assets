@@ -6,6 +6,13 @@ Assets for processing pixelart
 
 -Add depth system
 
+
+# Features
+
+## Controlling Framerate:
+
+WEBGL has a base framerate of 60 fps. To change the framerate, change FRAMERATE to a different value, preferably where FRAMERATE = 60 / n where n is > 0
+
 # Important Structures
 
 ## Vector

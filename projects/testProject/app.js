@@ -1,7 +1,11 @@
 let UPDATEDELAY = 1;
 let MAXPROBABILITY = 0.99;
+// Can only make framerate 60 / n where n is > 0
+let WEBGLBASEFRAMERATE = 60;
 let FRAMERATE = 60;
+let FRAMERATESCATTER = 5;
 let canvasInstances = [];
+let prevTime = 0;
 
 var vertexShaderText = `
   precision mediump float;
@@ -29,12 +33,12 @@ var fragmentShaderText = `
 
 var InitCanvas = function (canvasId) {
   var canvas = document.getElementById(canvasId);
-  canvas.width = document.body.clientWidth; //document.width is obsolete
-  canvas.height = document.body.clientHeight; //document.height is obsolete
 
-  let canvasWidth = canvas.width;
-  let canvasHeight = canvas.height;
-
+  let canvasWidth = document.body.clientWidth;
+  let canvasHeight = document.body.clientHeight;
+  canvas.width = canvasWidth; //document.width is obsolete
+  canvas.height = canvasHeight; //document.height is obsolete
+  
   var gl = canvas.getContext("webgl");
 
   if (!gl) {
@@ -139,28 +143,37 @@ var InitCanvas = function (canvasId) {
     createBodies(bodies, { canvasWidth, canvasHeight });
   }
 
-  let mainLoop = function () {
-    gl.clearColor(0, 0, 0, 0);
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    triangleVertices = [];
+  let mainLoop = function (currentTime) {
 
-    // Do all drawing in this section
-    for (let i = 0; i < bodies.length; i++) {
-      bodies[i].update({ canvasWidth, canvasHeight });
-      bodies[i].render(triangleVertices, { canvasWidth, canvasHeight });
+    let deltaTime = currentTime - prevTime;
+
+    // Update based on framerate
+    if ( deltaTime > (1000 / FRAMERATE) - FRAMERATESCATTER ) {
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+      triangleVertices = [];
+
+      // Do all drawing in this section
+      // We populate triangleVertices (pass by reference)
+      for (let i = 0; i < bodies.length; i++) {
+        bodies[i].update({ canvasWidth, canvasHeight }, deltaTime);
+        bodies[i].render(triangleVertices, { canvasWidth, canvasHeight });
+      }
+
+      // Don't change anything below this
+      numItems = triangleVertices.length / 6;
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array(triangleVertices),
+        gl.STATIC_DRAW
+      );
+
+      gl.drawArrays(gl.TRIANGLES, 0, numItems);
+
+      prevTime = currentTime;
     }
-
-    // Don't change anything below this
-    numItems = triangleVertices.length / 6;
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
-    gl.bufferData(
-      gl.ARRAY_BUFFER,
-      new Float32Array(triangleVertices),
-      gl.STATIC_DRAW
-    );
-
-    gl.drawArrays(gl.TRIANGLES, 0, numItems);
     requestAnimationFrame(mainLoop);
   };
   requestAnimationFrame(mainLoop);
@@ -176,21 +189,18 @@ function createBodies(bodies, canvasDim) {
     ]),
     initialVelocity: new Vector([0, Math.random() * -10]),
     pixelSize: {
-      height: 15,
-      width: 15,
+      height: 10,
+      width: 10,
     },
-    // template: (body) => {
-    //   return new Template(make2DLineTemplate(new Vector([1, 1]), [1, 1, 1, 1]));
-    // },
-    forces: [new Vector([0, 3])],
+    forces: [new Vector([0, -1])],
     mass: 10,
-    probability: 0.5,
-    direction: new Vector([0, -5]),
+    probability: 0.95,
+    direction: new Vector([0, -20]),
     coordsSpawn: [
       (-1 * canvasWidth) / 2,
-      canvasHeight / 2,
+      canvasHeight / 2 + 50,
       canvasWidth / 2,
-      canvasHeight / 2 - 1,
+      canvasHeight / 2 - 1 + 50,
     ],
   };
   var body = new Rain(config);

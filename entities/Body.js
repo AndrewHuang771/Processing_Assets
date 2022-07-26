@@ -7,9 +7,16 @@ function Body(config) {
   this.mass = this.config.mass;
   // 2D Array showing body layout and color for each rect
   this.template = this.config.template || new Template([
-    [[1, 1, 1, 0.1], [0, 0, 0, 0], [1, 0.1, 1, 1], [1, 0.1, 1, 1]],
-    [[0.1, 1, 1, 1], [1, 1, 0.1, 1]],
-    [[1, 1, 1, 1]]
+    [[1, 1, 1, 0]],
+    [[1, 1, 1, 0]],
+    [[1, 1, 1, 0]],
+    [[1, 1, 1, 0]],
+    [[1, 1, 1, 0]],
+    [[1, 1, 1, 0]],
+    [[1, 1, 1, 0]],
+    [[1, 1, 1, 0]],
+    [[1, 1, 1, 0]],
+    [[1, 1, 1, 0]],
   ]);
   this.forces = [...this.config.forces];
   // The top-left corner of the body
@@ -39,8 +46,11 @@ function Body(config) {
     this.position.add(this.velocity);
   };
 
-  this.update = () => {
-    this.updatePosition();
+  this.update = (dT) => {
+    let iterations = Math.round(dT / (1000/WEBGLBASEFRAMERATE))
+    for ( let i = 0; i < iterations; i ++ ) {
+      this.updatePosition();
+    }
   };
 
   this.render = (triangleVertices, canvasDim) => {
