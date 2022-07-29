@@ -1,0 +1,28 @@
+@font-face {
+    font-family: "PixelFont";
+    src: url("disposabledroid-bb/DisposableDroidBB.ttf");
+}
+
+@font-face {
+    font-family: "PressStart";
+    src: url("press-start/prstart.ttf");
+}
+
+@font-face {
+    font-family: "OnceUponATime";
+    src: url("yoster-island/yoster.ttf");
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+video {
+    z-index: -100;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}

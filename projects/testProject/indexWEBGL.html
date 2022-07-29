@@ -1,34 +1,36 @@
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Pixel Art Animator</title>
-		<style> 
-			body { 
-			background-image: url("rain.png");
-			background-size: cover;
-			padding: 0; 
-			margin: 0;
-		  } 
-		 </style>
-	</head>
-	<body onload="InitCanvas('game-surface');">
-		<div style="color: white; opacity: 0.5; background: black; height: 100px; width: 100px; position: absolute; z-index: 0;">Hi</div>
-		<canvas id="game-surface" style="opacity: 0.15; position:absolute; z-index: 10;">
-			Your browser does not support HTML5
-		</canvas>
-		<!-- <canvas id="game-surface2" style="position:absolute; z-index: -4;">
-			Your browser does not support HTML5
-		</canvas> -->
-		<script language="javascript" type="text/javascript" src="../../dataStructures/Vector.js"></script>
-		<script language="javascript" type="text/javascript" src="../../dataStructures/Template.js"></script>
-		<script language="javascript" type="text/javascript" src="../../dataStructures/VectorField.js"></script>
-	  
-		<!-- Utility Functions -->
-		<script language="javascript" type="text/javascript" src="../../utils.js"></script>
-	  
-		<!-- Entities -->
-		<script language="javascript" type="text/javascript" src="../../entities/Body.js"></script>
-		<script language="javascript" type="text/javascript" src="../../entities/Rain.js"></script>
-		<script src="app.js"></script>
-	</body>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Night Drive</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<body onload="InitCanvas('game-surface');">
+	<video id="videobkgd" autoplay muted loop>
+		<source src="./night.mp4" type="video/mp4">
+	</video>
+	<div id="textContainer"></div>
+	<div id="textContainer2"></div>
+	<canvas onclick="start()" id="game-surface" style="opacity: 1; position:absolute; z-index: 10;">
+		Your browser does not support HTML5
+	</canvas>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script language="javascript" type="text/javascript" src="./text.js"></script>
+	<script language="javascript" type="text/javascript" src="./story.js"></script>
+	<script language="javascript" type="text/javascript" src="../../dataStructures/Vector.js"></script>
+	<script language="javascript" type="text/javascript" src="../../dataStructures/Template.js"></script>
+	<script language="javascript" type="text/javascript" src="../../dataStructures/VectorField.js"></script>
+
+	<!-- Utility Functions -->
+	<script language="javascript" type="text/javascript" src="../../utils.js"></script>
+
+	<!-- Entities -->
+	<script language="javascript" type="text/javascript" src="../../entities/Body.js"></script>
+	<script language="javascript" type="text/javascript" src="../../entities/Rain.js"></script>
+	<script language="javascript" type="text/javascript" src="../../entities/Star/frames.js"></script>
+	<script language="javascript" type="text/javascript" src="../../entities/Star/Star.js"></script>
+	<script src="app.js"></script>
+</body>
+
 </html>

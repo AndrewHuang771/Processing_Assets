@@ -6,6 +6,11 @@ function drawRect(
   triangleVertices,
   canvasDim
 ) {
+
+  // if color is [0, 0, 0, 0]. it's transparent, so don't draw it
+  if ( color[0] == 0 && color[1] == 0 && color[2] == 0 && color[3] == 0) {
+    return;
+  }
   let { canvasWidth, canvasHeight } = canvasDim;
   // Top left corner of the rectangle
   let position = positionVector.getComponents();

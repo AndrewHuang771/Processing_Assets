@@ -14,18 +14,21 @@ function analyze() {
 
     var imgData = c.getImageData(0, 0, width, height);
 
+    console.log(imgData, width);
     pixel_str = "[[";
 
     for (var i = 0; i < imgData.data.length; i += 4) {
-      pixel_str += "color(";
-      pixel_str += imgData.data[i].toString() + ", ";
-      pixel_str += imgData.data[i + 1].toString() + ", ";
-      pixel_str += imgData.data[i + 2].toString() + ", ";
-      pixel_str += imgData.data[i + 3].toString() + "),";
-      if (i % width === 0 && i > 0) {
+      if (i % (width) === 0 && i > 0) {
+        console.log(i);
         pixel_str = pixel_str.slice(0, -1);
         pixel_str += "],[";
       }
+      pixel_str += "[";
+      pixel_str += (imgData.data[i] / 255).toString() + ", ";
+      pixel_str += (imgData.data[i + 1] / 255).toString() + ", ";
+      pixel_str += (imgData.data[i + 2] / 255).toString() + ", ";
+      pixel_str += (imgData.data[i + 3] / 255).toString() + "],";
+
     }
     pixel_str = pixel_str.slice(0, -1);
     pixel_str += "]]";

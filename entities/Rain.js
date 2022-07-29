@@ -2,8 +2,8 @@ function Droplet(config) {
   this.config = config;
   this.body = new Body(this.config);
 
-  this.update = (dT) => {
-    this.body.update(dT);
+  this.update = () => {
+    this.body.update();
   };
 
   this.render = (triangleVertices, canvasDim) => {
@@ -40,7 +40,7 @@ function Rain(config) {
 
   this.createDroplets = () => {
     let num = 0;
-    while (Math.random() <= this.probability && num < 10) {
+    while (Math.random() <= this.probability && num < 30) {
       num++;
       let coordX =
         this.coordsSpawn[0] +
@@ -57,13 +57,14 @@ function Rain(config) {
 
   this.destroyDropletsOOS = (canvasDim) => {
     let { canvasWidth, canvasHeight } = canvasDim;
+    let buffer = 100;
     for (let i = 0; i < this.droplets.length; i++) {
       let position = this.droplets[i].body.position.getComponents();
       if (
-        position[0] > canvasWidth / 2 ||
-        position[1] < canvasHeight / -2 ||
-        position[0] < canvasWidth / -2 ||
-        position[1] > canvasHeight / 2 + 50
+        position[0] > canvasWidth / 2 + buffer ||
+        position[1] < canvasHeight / -2  - buffer ||
+        position[0] < canvasWidth / -2  - buffer ||
+        position[1] > canvasHeight / 2 + 50 + buffer
       ) {
         this.droplets.splice(i, 1);
       }
@@ -76,11 +77,11 @@ function Rain(config) {
     }
   };
 
-  this.update = (canvasDim, dT) => {
+  this.update = (canvasDim) => {
     this.createDroplets();
     this.destroyDropletsOOS(canvasDim);
     for (let i = 0; i < this.droplets.length; i++) {
-      this.droplets[i].update(dT);
+      this.droplets[i].update();
     }
   };
 }
