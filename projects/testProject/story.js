@@ -12,7 +12,7 @@ let config = {
     },
     messages: [
         {
-            text: "Hey is it alright if I put on some music?",
+            text: "Can I put on some music?",
             startTime: 0,
         },
         {
@@ -61,7 +61,7 @@ let config = {
             startTime: 42500,
         },
         {
-            text: "different side of the road",
+            text: "different lane",
             startTime: 43500,
         },
         {//and a lot of luggage
@@ -84,7 +84,7 @@ let configWoman = {
     },
     messages: [
         {
-            text: "Do you even need to ask?",
+            text: "Sure.",
             startTime: 3500,
         },
         {
@@ -107,7 +107,7 @@ let configWoman = {
         // You were wearing that awful vest and helmet
         // show he's a classic macho guy, contrast to how sensitive he is later
         {
-            text: "Oh I remember now! Like ten years ago",
+            text: "Oh I remember! Like ten years ago",
             startTime: 48500,
         },
         {
@@ -175,50 +175,41 @@ let config2 = {
             startTime: 23500,
         },
         {
-            text: "Got that white collar job",
-            startTime: 25500,
+            text: "I've been volunteering, you know?",
+            startTime: 26500,
         },
         {
-            text: "Go to church every Sunday",
-            startTime: 27500,
+            text: "at the shelter on Yonge and Finch",
+            startTime: 28500,
         },
         {
-            text: "No honking",
-            startTime: 29500,
-        },
-        {
-            text: "No rude gestures",
-            startTime: 30500,
-        },
-        {
-            text: "All-around well-tempered, sophisticated individual.",
+            text: "And work's going well",
             startTime: 31500,
-            duration: 3000,
         },
         {
-            text: "And don't you act like Miss Goodie-Two shoes",
+            text: "The boss says I might get promoted!",
+            startTime: 33500,
+        },
+        {
+            text: "And I've been saving.",
+            startTime: 35500,
+        },
+        {
+            text: "In a few years I'll be able to buy a house",
             startTime: 37500,
         },
         {
-            text: "You were stone cold when I met you",
-            startTime: 39500,
+            text: "...raise a family.",
+            startTime: 40500,
         },
         {
-            text: "The Iron Maiden",
-            startTime: 41500,
+            text: "Luce, I'm serious!",
+            startTime: 48500,
         },
         {
-            text: "I thought you hated me!",
-            startTime: 43500,
-        },
-        {
-            text: "I was the only one asking!",
-            startTime: 51500,
-        },
-        {
-            text: "What kinda stupid rule is that?",
-            startTime: 55500,
-        },
+            text: "Really!",
+            startTime: 50500,
+        }
     ],
 };
 
@@ -273,25 +264,21 @@ let configWoman2 = {
             startTime: 14500,
         },
         {
-            text: "Wow look at you!",
-            startTime: 33500,
+            text: "That'll be a sight to see,",
+            startTime: 44500,
         },
         {
-            text: "So professional!",
-            startTime: 35500,
+            text: "Who's the lucky girl?",
+            startTime: 46500,
         },
         {
-            text: "You know I didn't hate you",
-            startTime: 47500,
-        },
-        {
-            text: "I kept hanging out with you didn't I?",
+            text: "Really?",
             startTime: 49500,
         },
         {
-            text: "The guy always asks.",
-            startTime: 53500,
-        },
+            text: "That's a first.",
+            startTime: 52500,
+        }
     ],
 };
 
@@ -322,7 +309,7 @@ let config3 = {
         },
         {
             text: "It's just that,",
-            startTime: 10500,
+            startTime: 11500,
         },
         {
             text: "Tomorrow,",
@@ -451,334 +438,6 @@ let configWoman3 = {
     ],
 };
 
-// Arc 4 looking forward and singalong____________________________________________________
-
-let config4 = {
-    parent: "#textContainer",
-    style: {
-        position: "absolute",
-        bottom: "50%",
-        left: "10%",
-        height: "100px",
-        width: "500px",
-        "z-index": 100
-    },
-    messages: [
-        {
-            text: "So...",
-            startTime: 0,
-        },
-        {
-            text: "...",
-            startTime: 4000,
-        },
-        {
-            text: "",
-            startTime: 35000,
-            callback: () => {
-                const audioElement = new Audio('phone.mp3');
-                audioElement.volume = 0.25;
-                audioElement.play();
-                setTimeout(() => {
-                    const audioElement = new Audio('tap.mp3');
-                    audioElement.volume = 0.75;
-                    audioElement.play();
-                }, 8000);
-            }
-        },
-        {
-            text: "Crap",
-            startTime: 41000,
-        },
-        {
-            text: "Hello? This is Ed",
-            startTime: 48000,
-        },
-        {
-            text: "Yeah, I'm almost there",
-            startTime: 52000,
-        },
-        {
-            text: "Just a few more minutes",
-            startTime: 56000,
-        },
-        {
-            text: "No she won't miss her flight!",
-            startTime: 60000,
-        },
-        {
-            text: "Yeah I'll be back in thirty minutes",
-            startTime: 68000,
-        },
-        {
-            text: "No, go to sleep.",
-            startTime: 70000,
-        },
-        {
-            text: "Go to sleep.",
-            startTime: 74000,
-        },
-        {
-            text: "'Night",
-            startTime: 78000,
-        },
-        {
-            text: "Yeah",
-            startTime: 86000,
-        },
-        {
-            text: "She still gets worried when I'm out past midnight",
-            duration: 3000,
-            startTime: 88000,
-        },
-        {
-            text: "It's annoying",
-            startTime: 94000,
-        },
-        {
-            text: "Your faith was strong",
-            startTime: 149000,
-            style: {
-                "font-size": "18px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "But you needed proof",
-            startTime: 151000,
-            style: {
-                "font-size": "18px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "You saw her bathing on the roof",
-            startTime: 153000,
-            style: {
-                "font-size": "18px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "Her beauty",
-            startTime: 156500,
-            style: {
-                "font-size": "18px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "in the moonlight",
-            startTime: 157500,
-            style: {
-                "font-size": "18px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "overthrew ya",
-            startTime: 158500,
-            style: {
-                "font-size": "18px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "She tied you to a kitchen chair",
-            startTime: 163500,
-            duration: 3000,
-            style: {
-                "font-size": "25px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "She broke your throne and she cut your hair",
-            startTime: 167000,
-            style: {
-                "font-size": "30px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "And from your lips she drew the Hallelujah",
-            startTime: 170000,
-            duration: 6000,
-            style: {
-                "font-size": "45px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "Pffffft",
-            startTime: 180000,
-        },
-        {
-            text: "Heh heh",
-            startTime: 182000,
-        },
-        {
-            text: "Nah I was perfect.",
-            startTime: 185000,
-        },
-        {
-            text: "Man, I'll miss this",
-            startTime: 195000,
-        },
-        {
-            text: "You know what I mean.",
-            startTime: 201000,
-        },
-        {
-            text: "Sigh.",
-            startTime: 205000,
-        },
-        {
-            text: "You're impossible.",
-            style: {
-                "font-style": "italic",
-            },
-            startTime: 208000,
-        },
-    ],
-};
-
-let configWoman4 = {
-    parent: "#textContainer2",
-    style: {
-        position: "absolute",
-        bottom: "30%",
-        right: "10%",
-        height: "100px",
-        width: "500px",
-        "text-align": "right",
-        "z-index": 100,
-    },
-    messages: [
-        {
-            text: "So...?",
-            startTime: 2000,
-        },
-        {
-            text: "...I'm gonna change the song.",
-            startTime: 10000,
-            callback: () => {
-                const audioElement = new Audio('casette2.mp3');
-                audioElement.play();
-                setTimeout(() => {
-                    // const audioElement2 = new Audio('hallelujah.mp3');
-                    // audioElement2.volume = 0.25;
-                    // audioElement2.play();
-                    // const audioElement3 = new Audio('surface_noise.wav');
-                    // audioElement3.volume = 0.7;
-                    // audioElement3.play();
-                }, 8000);
-            }
-        },
-        {
-            text: "wow I can't believe you still have this.",
-            startTime: 13000,
-        },
-        {
-            text: "your Mom?",
-            startTime: 84000,
-        },
-        {
-            text: "aww that's sweet",
-            startTime: 92000,
-        },
-        {
-            text: "...Hallelujah",
-            style: {
-                "font-size": "18px",
-                "font-style": "italic",
-            },
-            startTime: 18500 + 60000 + 50000,
-            duration: 4000,
-        },
-        {
-            text: "Hallelujah",
-            style: {
-                "font-size": "18px",
-                "font-style": "italic",
-            },
-            startTime: 18000 + 60000 + 50000 + 4000,
-        },
-        {
-            text: "Hallelujah",
-            style: {
-                "font-size": "18px",
-                "font-style": "italic",
-            },
-            duration: 2500,
-            startTime: 18500 + 60000 + 50000 + 4000 + 3000,
-        },
-        {
-            text: "Hallelujah",
-            style: {
-                "font-size": "18px",
-                "font-style": "italic",
-            },
-            duration: 5000,
-            startTime: 18000 + 60000 + 50000 + 4000 + 4000 + 3000,
-        },
-        {
-            text: "She tied you to a kitchen chair",
-            startTime: 163500,
-            duration: 3000,
-            style: {
-                "font-size": "25px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "She broke your throne and she cut your hair",
-            startTime: 167000,
-            style: {
-                "font-size": "30px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "And every breath we drew was Hallelujah",
-            startTime: 170000,
-            duration: 6000,
-            style: {
-                "font-size": "45px",
-                "font-style": "italic",
-            },
-        },
-        {
-            text: "Hey hey who're you laughing at?",
-            startTime: 182000,
-        },
-        {
-            text: "You screwed up, not me",
-            startTime: 183000,
-        },
-        {
-            text: "You!",
-            startTime: 186000,
-        },
-        {
-            text: "You're impossible.",
-            startTime: 190000,
-        },
-        {
-            text: "What?",
-            startTime: 197000,
-        },
-        {
-            text: "Getting the lyrics wrong?",
-            startTime: 199000,
-        },
-        {
-            text: "No I'm afraid I don't.",
-            startTime: 203000,
-        },
-    ],
-};
-
 var started = false;
 
 var startAudio = function () {
@@ -789,6 +448,7 @@ var startAudio = function () {
 
 var start = () => {
     if (!started) {
+        titleScreenDiv.fadeOut();
         started = true;
         startAudio();
 
@@ -812,15 +472,54 @@ var start = () => {
 
             let woman3 = new TextBox(configWoman3);
             woman3.start();
-        }, 120000);
+        }, 130000);
 
-        // setTimeout(() => {
-        //     let man4 = new TextBox(config4);
-        //     man4.start();
-
-        //     let woman4 = new TextBox(configWoman4);
-        //     woman4.start();
-        // }, 150000);
+        setTimeout(() => {
+            endScreenDiv.fadeIn();
+        }, 130000 + 78000);
     }
 }
 
+var titleScreenDiv = $("#titleScreen");
+var title = $("<div>").text("Midnight Drive");
+var text = $("<div>").text("Press anywhere to start.");
+
+titleScreenDiv.css({
+    position: "absolute",
+    left: "40%",
+    top: "60%",
+});
+
+title.css({
+    color: "white",
+    "font-size": "60px",
+    "font-family": "PressStart",
+});
+text.attr("id", "titleText");
+text.css({
+    color: "white",
+    "font-size": "30px",
+    "font-family": "PressStart",
+});
+titleScreenDiv.append(title);
+titleScreenDiv.append("<br>");
+titleScreenDiv.append(text);
+
+var endScreenDiv = $("#endScreen");
+var endText = $("<div>").text("Story by Andrew Huang\n\n    Art by Romain Courtois\n\n      Music by Bruno Major");
+
+endScreenDiv.css({
+    position: "absolute",
+    left: "40%",
+    top: "60%",
+});
+
+endText.css({
+    "white-space": "pre-wrap",
+    color: "white",
+    "font-size": "30px",
+    "font-family": "PressStart",
+})
+
+endScreenDiv.append(endText);
+endScreenDiv.hide();
