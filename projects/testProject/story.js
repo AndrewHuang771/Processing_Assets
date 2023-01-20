@@ -197,9 +197,10 @@ let config2 = {
         {
             text: "In a few years I'll be able to buy a house",
             startTime: 37500,
+            duration: 2000,
         },
         {
-            text: "...raise a family.",
+            text: "...start a family.",
             startTime: 40500,
         },
         {
@@ -481,8 +482,8 @@ var start = () => {
 }
 
 var titleScreenDiv = $("#titleScreen");
-var title = $("<div>").text("Midnight Drive");
-var text = $("<div>").text("Press anywhere to start.");
+var title = $("<div>").text("Midnight Flight");
+var text = $("<div>").text("Click anywhere to start.");
 
 titleScreenDiv.css({
     position: "absolute",
