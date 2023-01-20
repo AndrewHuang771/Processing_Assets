@@ -25,6 +25,7 @@ var TextBox = function (config) {
         "font-size": "30px",
         "font-family": "PressStart",
     }
+
     this.defaultMessageStyle = {
         position: "absolute",
     };
@@ -48,18 +49,21 @@ var TextBox = function (config) {
         div.fadeIn(message.fadeInSpeed || this.defaultFadeInTime);
         // Increase Height
         this.height += div.height() + this.spacing;
+        // console.log(this.height)
         this.displayedMessages.push(div);
 
         setTimeout(() => {
-            this.clearMessage(div);
+            this.clearMessage(message, div);
         }, (message.duration || this.defaultMessageDuration) + (message.fadeInSpeed || this.defaultFadeInTime));
     }
 
-    this.clearMessage = (message) => {
-        message.fadeOut(message.fadeOutSpeed || this.defaultFadeOutTime, () => {
-            message.remove();
+    this.clearMessage = (message, div) => {
+        div.fadeOut(div.fadeOutSpeed || this.defaultFadeOutTime, () => {
+            isFunction(message.callback) ? message.callback() : void (0);
+            div.remove();
         });
-        this.height -= message.height() + this.spacing;
+        this.height -= div.height() + this.spacing;
+        // console.log(this.height)
         // Reduce height
         // Bump up all messages beneath this one by the height of the removed message
     }
